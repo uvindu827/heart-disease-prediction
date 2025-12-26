@@ -2,14 +2,21 @@ import streamlit as st
 import pandas as pd
 import joblib
 import numpy as np
+import os
 
 # 1. Page Config
 st.set_page_config(page_title="Heart Attack Risk Predictor", page_icon="❤️", layout="wide")
 
 # 2. Load Model
+
 @st.cache_resource
 def load_model():
-    return joblib.load('heart_attack_risk_model.pkl')
+    # Get the directory where app.py is located
+    base_path = os.path.dirname(__file__)
+    # Combine it with the filename
+    model_path = os.path.join(base_path, 'heart_attack_risk_model.pkl')
+    
+    return joblib.load(model_path)
 
 try:
     model = load_model()
